@@ -10,7 +10,7 @@ pipeline {
         stage('code compile') {
             steps {
                 withMaven(globalMavenSettingsConfig: '', jdk: 'JDK_HOME', maven: 'MVN_HOME', mavenSettingsConfig: '', traceability: true) {
-    // sh 'mvn package'
+    sh 'mvn package'
 }
             }
         }
