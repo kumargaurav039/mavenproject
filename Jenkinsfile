@@ -1,29 +1,18 @@
-pipeline
-{
-agent any
-stages
-{
+pipeline {
+    agent any
 
-stage ('scm checkout')
-  { steps {  git branch: 'master', url: 'https://github.com/prakashk0301/mavenproject'   }}
-
-
-
-
-
-stage('generate artifact and sonar analysis')
-
-
-
-{ steps {withMaven(globalMavenSettingsConfig: '', jdk: 'JAVA_HOME', maven: 'MAVEN_HOME', mavenSettingsConfig: '', traceability: true) 
-  { withSonarQubeEnv(credentialsId: 'sonar', installationName: 'sonar')
-   {
-    sh 'mvn clean install -DskipTests sonar:sonar'    
-   }}  } }
-
-
- 
-
+    stages {
+        stage('scm checkout') {
+            steps {
+                git 'https://github.com/kumargaurav039/mavenproject.git'
+            }
+        }
+        stage('code compile') {
+            steps {
+                withMaven(globalMavenSettingsConfig: '', jdk: 'JDK_HOME', maven: 'MVN_HOME', mavenSettingsConfig: '', traceability: true) {
+    // sh 'mvn package'
 }
-
+            }
+        }
+    }
 }
